@@ -60,7 +60,11 @@ def main(argv: list[str] | None = None):
         sys.exit(1)
 
     print(f"Checking {args.address} across {len(checker.chains)} chains...", file=sys.stderr)
-    summary = checker.check_all(args.address, max_workers=args.workers)
+    try:
+        summary = checker.check_all(args.address, max_workers=args.workers)
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
     if args.as_json:
         output = {

@@ -10,6 +10,7 @@ import requests
 from web3 import Web3
 
 from multichain_wallet.chains import CHAINS, Chain
+from multichain_wallet.validation import validate_address
 
 
 @dataclass
@@ -57,7 +58,13 @@ class WalletChecker:
     # ── Public API ──────────────────────────────────────────────────────
 
     def check_all(self, address: str, max_workers: int = 8) -> WalletSummary:
-        """Check balances on all configured chains in parallel."""
+        """Check balances on all configured chains in parallel.
+
+        Raises ValueError up front if the address is not valid for any of
+        the selected chain types, instead of collecting one RPC error
+        per chain.
+        """
+        validate_address(address, self.chains)
         summary = WalletSummary(address=address)
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as pool:
@@ -77,13 +84,18 @@ class WalletChecker:
         return summary
 
     def check(self, address: str, chain: str) -> BalanceResult:
-        """Check balance on a single chain."""
+        """Check balance on a single chain.
+
+        Raises ValueError if the address is not valid for that chain's
+        type.
+        """
         chain = chain.lower()
         if chain not in CHAINS:
             return BalanceResult(
                 chain=chain, symbol="?", balance=0,
                 explorer_url="", error=f"Unknown chain: {chain}",
             )
+        validate_address(address, [chain])
         return self._check_single(address, chain)
 
     # ── Internal ────────────────────────────────────────────────────────
