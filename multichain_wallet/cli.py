@@ -40,7 +40,7 @@ def _format_table(summary) -> str:
 def main(argv: list[str] | None = None):
     parser = argparse.ArgumentParser(
         prog="multichain",
-        description="Check crypto wallet balances across 20+ chains.",
+        description="Check crypto wallet balances across 19 chains.",
     )
     parser.add_argument("address", help="Wallet address (EVM 0x... or Solana/BTC)")
     parser.add_argument(
