@@ -49,3 +49,15 @@ def test_pyproject_description_evm_count_matches_chains():
     pyproject = (ROOT / "pyproject.toml").read_text()
     assert f"{_evm_count()} EVM chains" in pyproject
     assert "20+" not in pyproject
+
+
+def test_pyproject_license_is_spdx_string():
+    """`license = {text = "MIT"}` triggers a setuptools 84 deprecation
+    warning (and breaks builds by 2027-02-18); the SPDX string form
+    `license = "MIT"` needs setuptools>=77, and the MIT classifier is
+    likewise deprecated once the SPDX expression is used."""
+    pyproject = (ROOT / "pyproject.toml").read_text()
+    assert re.search(r'^license = "MIT"$', pyproject, re.M)
+    assert "License ::" not in pyproject
+    match = re.search(r'^requires = \["setuptools>=(\d+)', pyproject, re.M)
+    assert match and int(match.group(1)) >= 77
