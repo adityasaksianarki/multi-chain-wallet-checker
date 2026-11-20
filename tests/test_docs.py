@@ -2,7 +2,7 @@
 help text, and pyproject.toml must match the real CHAINS table.
 
 Regression test for the "20+ chains" headline, which was wrong: CHAINS
-has 19 entries (17 EVM + 2 non-EVM).
+has 20 entries (18 EVM + 2 non-EVM).
 """
 
 import re

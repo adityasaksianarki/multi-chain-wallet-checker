@@ -106,6 +106,11 @@ CHAINS: dict[str, Chain] = {
         rpc_url="https://evm.cronos.org",
         explorer="https://cronoscan.com",
     ),
+    "elysium": Chain(
+        chain_id=99901, name="Elysium", symbol="HYPE",
+        rpc_url="https://rpc.elysium.kinetiq.xyz",
+        explorer="https://elysium.kinetiq.xyz/explorer",
+    ),
     # Non-EVM
     "solana": Chain(
         chain_id=0, name="Solana", symbol="SOL",

@@ -1,8 +1,8 @@
 # Multi-Chain Wallet Checker
 
-Check cryptocurrency wallet balances across **19 blockchains** in one command.
+Check cryptocurrency wallet balances across **20 blockchains** in one command.
 
-Supports EVM chains (Ethereum, BSC, Polygon, Arbitrum, Optimism, Base, and 11 more), Solana, and Bitcoin — all with a single CLI tool or Python API.
+Supports EVM chains (Ethereum, BSC, Polygon, Arbitrum, Optimism, Base, and 12 more), Solana, and Bitcoin — all with a single CLI tool or Python API.
 
 ## Install
 
@@ -70,6 +70,7 @@ for r in summary.non_zero:
 | Celo | CELO | EVM |
 | Gnosis | xDAI | EVM |
 | Cronos | CRO | EVM |
+| Elysium | HYPE | EVM |
 | Solana | SOL | Non-EVM |
 | Bitcoin | BTC | Non-EVM |
 
